@@ -1,6 +1,6 @@
 let fr = new FileReader();
 let data;
-let temp = "test";
+let temp = "level";
 let height = 0;
 let enemies = [];
 let obstacles = [];
@@ -56,9 +56,16 @@ fr.onload = () => {
   let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(level, null, 4));
   let dlAnchorElem = document.getElementById('downloadAnchorElem');
   dlAnchorElem.setAttribute("href", dataStr);
-  dlAnchorElem.setAttribute("download", "level.json");
+  dlAnchorElem.setAttribute("download", `${temp}.json`);
 }
 
 document.getElementById('inputfile').onchange = (e) => {
   fr.readAsText(e.target.files[0]);
+}
+
+document.getElementById('submit').onclick = (e) => {
+  document.getElementById('form').style.display = "block";
+  document.getElementById('submitDiv').style.display = "none";
+
+  temp = document.getElementById('name').value;
 }
