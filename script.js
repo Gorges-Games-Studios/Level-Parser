@@ -28,9 +28,9 @@ fr.onload = () => {
         if (i - 1 % width === 0 || map.get(matrix[i - 1]) !== 'obstacle') {
           obstacles.push({
             "type": "branch",
-            "x": (i % width),
-            "y": Math.floor((matrix.length - i) / width),
-            "width": start - i + 1,
+            "x": 3 * (i % width),
+            "y": 3 * Math.floor((matrix.length - i) / width),
+            "width": 3 * (start - i + 1),
           });
           start = -1;
         }
@@ -38,8 +38,8 @@ fr.onload = () => {
       default:
         enemies.push({
           "type": map.get(matrix[i]),
-          "x": (i % width),
-          "y": Math.floor((matrix.length - i) / width),
+          "x": 3 * (i % width),
+          "y": 3 * Math.floor((matrix.length - i) / width),
         });
         break;
     }
@@ -48,10 +48,11 @@ fr.onload = () => {
   let level = {
     "name": temp,
     "enemies": enemies,
+    "enemies_count": enemies.length,
+    "obstacles_count": obstacles.length,
     "obstacles": obstacles,
     "finish_height": height,
   };
-
 
   let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(level, null, 4));
   let dlAnchorElem = document.getElementById('downloadAnchorElem');
