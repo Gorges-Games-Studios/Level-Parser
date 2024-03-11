@@ -21,7 +21,7 @@ fr.onload = () => {
       case undefined:
         continue;
       case 'finish':
-        height = Math.floor((matrix.length - i) / width);
+        height = 3 * Math.floor((matrix.length - i) / width);
         break;
       case 'obstacle':
         if (start === -1) start = i;
