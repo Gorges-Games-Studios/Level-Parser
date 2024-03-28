@@ -1,6 +1,7 @@
 let fr = new FileReader();
 let data;
 let temp = "level";
+let background = "background";
 let height = 0;
 let enemies = [];
 let obstacles = [];
@@ -47,6 +48,7 @@ fr.onload = () => {
 
   let level = {
     "name": temp,
+    "background": background,
     "enemies": enemies,
     "enemies_count": enemies.length,
     "obstacles_count": obstacles.length,
@@ -69,4 +71,5 @@ document.getElementById('submit').onclick = (e) => {
   document.getElementById('submitDiv').style.display = "none";
 
   temp = document.getElementById('name').value;
+  background = document.getElementById('background').value;
 }
