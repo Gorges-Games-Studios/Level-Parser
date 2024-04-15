@@ -6,6 +6,13 @@ let height = 0;
 let enemies = [];
 let obstacles = [];
 let map = new Map();
+let branchSize = {
+  "branch-left-medium": 6,
+  "branch-right-medium": 6,
+  "branch-center-medium": 4,
+  "branch-left-long": 9,
+  "branch-right-long": 9,
+};
 
 const pattern = /(?<=Tiles\/).*?(?=\.tsx)/;
 
@@ -15,34 +22,26 @@ fr.onload = () => {
 
   const width = data.layers[0].width;
   const matrix = data.layers[0].data;
-  let start = -1;
 
   for (let i = matrix.length; i >= 0; i--) {
-    switch (map.get(matrix[i])) {
-      case undefined:
-        continue;
-      case 'finish':
-        height = 3 * Math.floor((matrix.length - i) / width);
-        break;
-      case 'obstacle':
-        if (start === -1) start = i;
-        if (i - 1 % width === 0 || map.get(matrix[i - 1]) !== 'obstacle') {
-          obstacles.push({
-            "type": "branch",
-            "x": 3 * (i % width),
-            "y": 3 * Math.floor((matrix.length - i) / width),
-            "width": 3 * (start - i + 1),
-          });
-          start = -1;
-        }
-        break;
-      default:
-        enemies.push({
-          "type": map.get(matrix[i]),
-          "x": 3 * (i % width),
-          "y": 3 * Math.floor((matrix.length - i) / width),
-        });
-        break;
+    const tile = map.get(matrix[i]);
+    if (tile === undefined) {
+      continue;
+    } else if (tile.includes('branch')) {
+      obstacles.push({
+        "type": tile,
+        "x": 3 * (i % width),
+        "y": 3 * Math.floor((matrix.length - i) / width),
+        "width": 3 * branchSize[tile],
+      });
+    } else if (tile === 'finish') {
+      height = 3 * Math.floor((matrix.length - i) / width);
+    } else {
+      enemies.push({
+        "type": tile,
+        "x": 3 * (i % width),
+        "y": 3 * Math.floor((matrix.length - i) / width),
+      });
     }
   }
 
