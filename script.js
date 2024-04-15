@@ -9,7 +9,7 @@ let map = new Map();
 let branchSize = {
   "branch-left-medium": 6,
   "branch-right-medium": 6,
-  "branch-center-medium": 4,
+  "branch-center-medium": 3,
   "branch-left-long": 9,
   "branch-right-long": 9,
 };
