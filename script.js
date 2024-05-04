@@ -42,6 +42,7 @@ fr.onload = () => {
     if (tile === undefined) {
       continue;
     } else if (tile.includes('branch')) {
+      const tileSize = branchSize[tile];
       if (background === "space") {
         tile = spaceMap[tile];
       } else if (background === "sky") {
@@ -51,7 +52,7 @@ fr.onload = () => {
         "type": tile,
         "x": 3 * (i % width),
         "y": 3 * Math.floor((matrix.length - i) / width),
-        "width": 3 * branchSize[tile],
+        "width": 3 * tileSize,
       });
     } else if (tile === 'finish') {
       height = 3 * Math.floor((matrix.length - i) / width);
