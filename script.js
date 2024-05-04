@@ -13,6 +13,20 @@ let branchSize = {
   "branch-left-long": 9,
   "branch-right-long": 9,
 };
+let cloudMap = {
+  "branch-left-medium": "cloud-medium-1",
+  "branch-right-medium": "cloud-medium-1",
+  "branch-center-medium": "cloud-small-1",
+  "branch-left-long": "cloud-large-1",
+  "branch-right-long": "cloud-large-1",
+};
+let spaceMap = {
+  "branch-left-medium": "asteroid-medium",
+  "branch-right-medium": "asteroid-medium",
+  "branch-center-medium": "asteroid-small",
+  "branch-left-long": "asteroid-large",
+  "branch-right-long": "asteroid-large",
+};
 
 const pattern = /(?<=Tiles\/).*?(?=\.tsx)/;
 
@@ -24,10 +38,15 @@ fr.onload = () => {
   const matrix = data.layers[0].data;
 
   for (let i = matrix.length; i >= 0; i--) {
-    const tile = map.get(matrix[i]);
+    let tile = map.get(matrix[i]);
     if (tile === undefined) {
       continue;
     } else if (tile.includes('branch')) {
+      if (background === "space") {
+        tile = spaceMap[tile];
+      } else if (background === "sky") {
+        tile = cloudMap[tile];
+      }
       obstacles.push({
         "type": tile,
         "x": 3 * (i % width),
