@@ -5,6 +5,7 @@ let background = "background";
 let height = 0;
 let enemies = [];
 let obstacles = [];
+let coins = [];
 let map = new Map();
 let branchSize = {
   "branch-left-medium": 6,
@@ -54,6 +55,11 @@ fr.onload = () => {
         "y": 3 * Math.floor((matrix.length - i) / width),
         "width": 3 * tileSize,
       });
+    } else if (tile === "coin") {
+      coins.push({
+        "x": 3 * (i % width),
+        "y": 3 * Math.floor((matrix.length - i) / width),
+      });
     } else if (tile === 'finish') {
       height = 3 * Math.floor((matrix.length - i) / width);
     } else {
@@ -72,6 +78,8 @@ fr.onload = () => {
     "enemies_count": enemies.length,
     "obstacles_count": obstacles.length,
     "obstacles": obstacles,
+    "coins_count": coins.length,
+    "coins": coins,
     "finish_height": height,
   };
 
